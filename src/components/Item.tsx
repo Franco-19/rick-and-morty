@@ -13,11 +13,44 @@ export default function Item() {
 		console.log(characters);
 	}, [characters]);
 
+	const handleStatusColor = (status: string | undefined) => {
+		if (status === "Alive") {
+			return "text-green-300";
+		}
+		if (status === "Dead") {
+			return "text-red-400";
+		}
+		return "text-white";
+	};
+
 	return (
-		<section  >
-			{characters.map(({id}) => (
-				<article className="bg-gray-500 rounded-md"  key={id}>Item</article>
-			))}
-		</section>
+		<>
+			{characters.map(
+				({ id, image, name, status, species, origin, location }) => (
+					<article className="bg-gray-500 rounded-md w-96" key={id}>
+						<img
+							className="rounded-t-md w-full object-cover h-72"
+							src={image}
+							alt=""
+						/>
+						<div className="p-3">
+							<div className="flex justify-between items-center">
+								<h2 className="text-white font-quicksand font-bold text-xl uppercase">
+									{name}
+								</h2>
+								<p className={handleStatusColor(status)}>{status}</p>
+							</div>
+							<p>{species}</p>
+							<p className="hover:text-yellow-200 transition-all duration-200">
+								<span className="underline">Origin</span>: {origin?.name}
+							</p>
+							<p className="hover:text-yellow-200 transition-all duration-200">
+								<span className="underline">Location</span>: {location?.name}
+							</p>
+						</div>
+					</article>
+				)
+			)}
+		</>
 	);
 }
