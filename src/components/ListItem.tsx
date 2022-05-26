@@ -7,8 +7,8 @@ type ListItemsProps = {
 
 export default function ListItems({ children }: ListItemsProps) {
   return (
-    <Container>
+    <section className='mx-4' >
         { children }
-    </Container>
+    </section>
   )
 }
