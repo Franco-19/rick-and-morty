@@ -31,7 +31,7 @@ export default function Item() {
 						<img
 							className="rounded-t-md w-full object-cover h-72"
 							src={image}
-							alt=""
+							alt={name}
 						/>
 						<div className="p-3">
 							<div className="flex justify-between items-center">

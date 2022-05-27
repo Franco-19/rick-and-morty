@@ -7,7 +7,7 @@ type ListItemsProps = {
 
 export default function ListItems({ children }: ListItemsProps) {
   return (
-    <section className='m-6 flex flex-wrap gap-4 justify-center' >
+    <section className='my-6 flex justify-center flex-wrap gap-4' >
         { children }
     </section>
   )

@@ -1,0 +1,1 @@
+export const Button: string = 'bg-yellow-200 text-slate-700 font-semibold px-3 py-2 rounded-lg hover:bg-yellow-300 hover:text-slate-600 transition-all duration-200';
