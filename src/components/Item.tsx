@@ -33,7 +33,7 @@ export default function Item() {
 							src={image}
 							alt={name}
 						/>
-						<div className="p-3">
+						<div className="p-4">
 							<div className="flex justify-between items-center">
 								<h2 className="text-white font-quicksand font-bold text-xl uppercase">
 									{name}
