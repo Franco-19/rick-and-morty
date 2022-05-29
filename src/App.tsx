@@ -1,4 +1,7 @@
+// Libraries
 import { useEffect, useState } from "react";
+
+// Services
 import { getCharacters } from "./services/Character";
 
 // Components
@@ -7,6 +10,9 @@ import Item from "./components/Item";
 import Layout from "./components/Layout";
 import ListItem from "./components/ListItem";
 import Pagination from "./components/Pagination";
+import Filter from "./components/Filter";
+
+// Interfaces
 import Character from "./interfaces/CharacterInterface";
 
 function App() {
@@ -31,6 +37,7 @@ function App() {
 		<>
 			<Header />
 			<Layout>
+				<Filter />
 				<Pagination actualPage={actualPage} setActualPage={setActualPage} />
 				<ListItem>
 					{characters.map(
