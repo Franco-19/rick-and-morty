@@ -11,11 +11,11 @@ import Character from "./interfaces/CharacterInterface";
 
 function App() {
 	const [characters, setCharacters] = useState<[Character]>([{}]);
+	const [actualPage, setActualPage] = useState<number>(1);
 
 	useEffect(() => {
-		getCharacters.then((data) => setCharacters(data));
-		console.log(characters);
-	}, [characters]);
+		getCharacters(actualPage).then((data) => setCharacters(data));
+	}, [actualPage]);
 
 	const handleStatusColor = (status?: string) => {
 		if (status === "Alive") {
@@ -31,9 +31,18 @@ function App() {
 		<>
 			<Header />
 			<Layout>
+				<Pagination actualPage={actualPage} setActualPage={setActualPage} />
 				<ListItem>
 					{characters.map(
-						({ id, image, name, status, species, origin, location }: Character) => (
+						({
+							id,
+							image,
+							name,
+							status,
+							species,
+							origin,
+							location,
+						}: Character) => (
 							<Item
 								key={id}
 								image={image}
@@ -47,7 +56,7 @@ function App() {
 						)
 					)}
 				</ListItem>
-				<Pagination />
+				<Pagination actualPage={actualPage} setActualPage={setActualPage} />
 			</Layout>
 		</>
 	);

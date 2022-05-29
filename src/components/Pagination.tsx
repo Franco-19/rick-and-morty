@@ -7,25 +7,27 @@ type PaginationItemProps = {
     number: number;
 }
 
-export default function Pagination() {
+type PaginationProps = {
+    actualPage: number;
+    setActualPage: React.Dispatch<React.SetStateAction<number>>;
+}
 
-    const [actualPage, setActualPage] = useState<number>(1)
+export default function Pagination({ actualPage, setActualPage }: PaginationProps) {
     const [info, setInfo] = useState<Info>({})
 
     useEffect(() => {
         getInfo(actualPage).then(data => setInfo(data.info))
-        console.log(info)
     },[actualPage])
 
     const handleNextPage = () => {
         setActualPage(actualPage + 1)
-        console.log(info)
+        goToTop()
     }
 
     const handlePreviousPage = () => {
         if(actualPage !== 1){
             setActualPage(actualPage - 1)
-            console.log(info)
+            goToTop()
         }
     }
 
@@ -36,6 +38,15 @@ export default function Pagination() {
             </button>
         )
     }
+
+    const goToTop = () => {
+        if(window.scrollY > 400){
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth",
+            });
+        }
+    };
 
   return (
     <div className='flex gap-3' >
