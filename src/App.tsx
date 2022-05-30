@@ -15,6 +15,8 @@ import Filter from "./components/Filter";
 // Interfaces
 import Character from "./interfaces/CharacterInterface";
 
+import CharacterProvider from "./context/charactersContext";
+
 function App() {
 	const [characters, setCharacters] = useState<[Character]>([{}]);
 	const [actualPage, setActualPage] = useState<number>(1);
@@ -34,7 +36,7 @@ function App() {
 	};
 
 	return (
-		<>
+		<CharacterProvider>
 			<Header />
 			<Layout>
 				<Filter />
@@ -65,7 +67,7 @@ function App() {
 				</ListItem>
 				<Pagination actualPage={actualPage} setActualPage={setActualPage} />
 			</Layout>
-		</>
+		</CharacterProvider>
 	);
 }
 

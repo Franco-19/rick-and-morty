@@ -1,5 +1,4 @@
 import axios, { AxiosResponse } from "axios";
-import Character from "../interfaces/CharacterInterface";
 import Location from "../interfaces/LocationInterface";
 
 export const getLocationByQuery = (page: number, location: string) => {
@@ -9,7 +8,6 @@ export const getLocationByQuery = (page: number, location: string) => {
             ${process.env.REACT_APP_API_LOCATION}
             ${location != "" ? `?name=${location}` : ""}
             ${page >= 1 ? `&page=${page}` : ""}
-        
         `,
 	}).then(({ data }: AxiosResponse<Location>) => data);
 };
