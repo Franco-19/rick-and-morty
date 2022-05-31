@@ -1,8 +1,5 @@
 // Libraries
-import { useEffect, useState } from "react";
-
-// Services
-import { getCharacters } from "./services/Character";
+import { useContext } from "react";
 
 // Components
 import Header from "./components/Header";
@@ -13,17 +10,13 @@ import Pagination from "./components/Pagination";
 import Filter from "./components/Filter";
 
 // Interfaces
-import Character from "./interfaces/CharacterInterface";
+import { CharacterResults } from "./interfaces/CharacterInterface";
 
-import CharacterProvider from "./context/charactersContext";
+// import CharacterProvider from "./context/charactersContext";
+import { CharactersContext } from './context/charactersContext';
 
 function App() {
-	const [characters, setCharacters] = useState<[Character]>([{}]);
-	const [actualPage, setActualPage] = useState<number>(1);
-
-	useEffect(() => {
-		getCharacters(actualPage).then((data) => setCharacters(data));
-	}, [actualPage]);
+	const { characters } = useContext(CharactersContext);
 
 	const handleStatusColor = (status?: string) => {
 		if (status === "Alive") {
@@ -36,11 +29,11 @@ function App() {
 	};
 
 	return (
-		<CharacterProvider>
+		<>
 			<Header />
 			<Layout>
 				<Filter />
-				<Pagination actualPage={actualPage} setActualPage={setActualPage} />
+				<Pagination />
 				<ListItem>
 					{characters.map(
 						({
@@ -51,7 +44,7 @@ function App() {
 							species,
 							origin,
 							location,
-						}: Character) => (
+						}: CharacterResults) => (
 							<Item
 								key={id}
 								image={image}
@@ -65,9 +58,9 @@ function App() {
 						)
 					)}
 				</ListItem>
-				<Pagination actualPage={actualPage} setActualPage={setActualPage} />
+				<Pagination />
 			</Layout>
-		</CharacterProvider>
+		</>
 	);
 }
 

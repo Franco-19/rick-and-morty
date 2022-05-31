@@ -1,4 +1,6 @@
-export default interface Character {
+import Info from "./InfoInterface";
+
+export interface CharacterResults {
 	id?: number;
 	name?: string;
 	episode?: string[];
@@ -14,4 +16,9 @@ export default interface Character {
 	species?: string;
 	status?: string;
 	url?: string;
+}
+
+export default interface Character {
+	info: Info;
+	results: CharacterResults[];
 }

@@ -1,4 +1,5 @@
-import React, { useEffect, useState  } from 'react';
+import React, { useContext, useEffect, useState  } from 'react';
+import { CharactersContext } from '../context/charactersContext';
 import Info from '../interfaces/InfoInterface';
 import { getInfo } from '../services/Info';
 import { Button } from '../styles/Button'
@@ -7,29 +8,14 @@ type PaginationItemProps = {
     number: number;
 }
 
-type PaginationProps = {
-    actualPage: number;
-    setActualPage: React.Dispatch<React.SetStateAction<number>>;
-}
-
-export default function Pagination({ actualPage, setActualPage }: PaginationProps) {
+export default function Pagination() {
     const [info, setInfo] = useState<Info>({})
+
+    const { actualPage, setActualPage, handlePreviousPage, handleNextPage } = useContext(CharactersContext)
 
     useEffect(() => {
         getInfo(actualPage).then(data => setInfo(data.info))
     },[actualPage])
-
-    const handleNextPage = () => {
-        setActualPage(actualPage + 1)
-        goToTop()
-    }
-
-    const handlePreviousPage = () => {
-        if(actualPage !== 1){
-            setActualPage(actualPage - 1)
-            goToTop()
-        }
-    }
 
     const PaginationItem = ({ number }: PaginationItemProps) => {
         return (
@@ -39,14 +25,7 @@ export default function Pagination({ actualPage, setActualPage }: PaginationProp
         )
     }
 
-    const goToTop = () => {
-        if(window.scrollY > 400){
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth",
-            });
-        }
-    };
+
 
   return (
     <div className='flex gap-3' >
