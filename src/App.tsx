@@ -1,5 +1,6 @@
 // Libraries
 import { useContext } from "react";
+import { Pulsar } from "@uiball/loaders";
 
 // Components
 import Header from "./components/Header";
@@ -13,10 +14,11 @@ import Filter from "./components/Filter";
 import { CharacterResults } from "./interfaces/CharacterInterface";
 
 // import CharacterProvider from "./context/charactersContext";
-import { CharactersContext } from './context/charactersContext';
+import { CharactersContext } from "./context/charactersContext";
 
 function App() {
-	const { characters } = useContext(CharactersContext);
+	const { characters, isLoading, setError, error } =
+		useContext(CharactersContext);
 
 	const handleStatusColor = (status?: string) => {
 		if (status === "Alive") {
@@ -34,30 +36,43 @@ function App() {
 			<Layout>
 				<Filter />
 				<Pagination />
-				<ListItem>
-					{characters?.map(
-						({
-							id,
-							image,
-							name,
-							status,
-							species,
-							origin,
-							location,
-						}: CharacterResults) => (
-							<Item
-								key={id}
-								image={image}
-								name={name}
-								status={status}
-								species={species}
-								origin={origin}
-								location={location}
-								handleStatusColor={handleStatusColor}
-							/>
-						)
-					)}
-				</ListItem>
+				{isLoading ? (
+					<div>
+						<Pulsar size={40} speed={1.75} color="black" />
+					</div>
+				) : error ? (
+					<p>{error}</p>
+				) : (
+					<ListItem>
+						{characters.length >= 1 ? (
+							characters?.map(
+								({
+									id,
+									image,
+									name,
+									status,
+									species,
+									origin,
+									location,
+								}: CharacterResults) => (
+									<Item
+										key={id}
+										image={image}
+										name={name}
+										status={status}
+										species={species}
+										origin={origin}
+										location={location}
+										handleStatusColor={handleStatusColor}
+									/>
+								)
+							)
+						) : (
+							<h1>Nothing to show</h1>
+						)}
+					</ListItem>
+				)}
+
 				<Pagination />
 			</Layout>
 		</>
