@@ -35,7 +35,7 @@ function App() {
 				<Filter />
 				<Pagination />
 				<ListItem>
-					{characters.map(
+					{characters?.map(
 						({
 							id,
 							image,

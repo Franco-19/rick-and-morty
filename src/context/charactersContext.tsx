@@ -22,7 +22,7 @@ export default function CharacterProvider({ children }: {children: JSX.Element})
     const [characters, setCharacters] = useState<Array<CharacterResults>>([]);
 
     useEffect(() => {
-		getCharacters(actualPage)
+		getCharacters(actualPage, [])
             .then(({ data }: AxiosResponse<{ results: [CharacterResults] }>) => setCharacters(data.results))
 	}, [actualPage]);
 
