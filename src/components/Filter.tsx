@@ -24,9 +24,8 @@ export default function Filter() {
 		{ name: "loading" },
 	]);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
-	// const [error, setError] = useState<string | boolean>(false);
 
-	const { actualPage, setCharacters, setError } = useContext(CharactersContext);
+	const { actualPage, setCharacters, setError, setActualPage } = useContext(CharactersContext);
 
 	const { handleSubmit, values, handleChange } = useFormik({
 		initialValues: {
@@ -34,7 +33,8 @@ export default function Filter() {
 		},
 		onSubmit: ({ searchValue }) => {
 			setIsLoading(true);
-			getLocationByQuery(actualPage, searchValue)
+			setActualPage(1);
+			getLocationByQuery(1, searchValue)
 				.then(({ results }) => {
 					setSearchedValues(results);
 				})
@@ -53,10 +53,8 @@ export default function Filter() {
 	};
 
 	const mapResidentsIds = (charactersId: string[]) => {
-		// console.log(searchedValues)
 		return searchedValues.map((location) => {
 			return location.residents?.map((resident) => {
-				// console.log(resident)
 				let holdResidentIdValue = resident.replace(
 					"https://rickandmortyapi.com/api/character/",
 					""
@@ -64,21 +62,13 @@ export default function Filter() {
 				return charactersId.push(holdResidentIdValue);
 			});
 		});
-		// console.log(charactersIdSearched)
 	};
 
 	let charactersId: string[] = [];
 	useEffect(() => {
 		mapResidentsIds(charactersId);
 		if (charactersId.length >= 1) {
-			// console.log(charactersId.splice(0, 20))
-			// setCharactersIdSearched(charactersId)
-			// console.log(searchedValues)
-			// console.log(charactersIdSearched)
-
 			updateCharaterValues(charactersId.splice(0, 20));
-
-			// console.log(characters)
 		}
 
 		setIsLoading(false);

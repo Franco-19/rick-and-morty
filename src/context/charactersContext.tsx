@@ -8,7 +8,7 @@ type CharactersContextInterface = {
 	characters: CharacterResults[];
 	setCharacters: React.Dispatch<React.SetStateAction<CharacterResults[]>>;
 	actualPage: number;
-	setActualPage?: React.Dispatch<React.SetStateAction<number>>;
+	setActualPage: React.Dispatch<React.SetStateAction<number>>;
 	handleNextPage?: () => void;
 	handlePreviousPage?: () => void;
 	isLoading: boolean;
@@ -25,6 +25,7 @@ export const CharactersContext = createContext<CharactersContextInterface>({
 	isLoading: false,
 	error: false,
 	setError: () => {},
+	setActualPage: () => {}
 });
 
 export default function CharacterProvider({
